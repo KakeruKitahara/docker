@@ -1,0 +1,40 @@
+# docker-compose.ymlの詳細:https://qiita.com/yuta-ushijima/items/d3d98177e1b28f736f04
+
+# dockerのversion設定．(version1は廃止予定なので非推奨．)
+version: "3.2"
+
+services:
+  atcoder:
+    # 作成コンテナ名
+    container_name: atcoder
+
+    build:
+      # docker buildコマンドを実行する場所
+      context: .
+
+      # 参照するdockerfile名
+      dockerfile: atcoder.Dockerfile
+
+    # bashなどを消してもdockerコンテナが終了しないようにするため．
+    tty: true
+
+    # volumeでlocalとcontainer間のファイルを同期させる．
+    volumes:
+      - type: volume
+        source: work_volume
+        target: /root/work
+
+  tex:
+    container_name: tex
+    build:
+      context: .
+      dockerfile: tex.Dockerfile
+    tty: true
+    volumes:
+    - type: volume
+      source: work_volume
+      target: /root/work
+
+# volumeの定義．
+volumes:
+  work_volume:
