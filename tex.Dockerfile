@@ -5,7 +5,7 @@ WORKDIR /root
 # alpineではパッケージを入手するコマンドはapt(apt-get)ではなく，apkである．
 # ディストロによってコマンドが異なることを注意せよ．
 RUN apk update && \
-apk add curl
+apk add curl git
 
 # FROMのDockerfileは2021年版のtexliveなので2022のtlmgr update（tlmgrのリスト一覧の取得）が2022ではないのでできない．
 # そのため2022のファイルをコピーしてpathsを2021から2022に繋ぎ変える．
