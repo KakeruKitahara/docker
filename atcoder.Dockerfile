@@ -13,7 +13,13 @@ ENV TZ=Asia/Tokyo
 # Ubuntuにデフォルトに入っていないパッケージをインストール．(time:プログラムの計測時間．zdata:日本のタイムゾーン．tree:ツリー表示．)
 # aptコマンドよりapt-getコマンドを推奨:
 RUN apt-get update && \
-apt-get install -y bash time tzdata tree git
+apt-get install -y bash time tzdata tree git language-pack-ja-base language-pack-ja
+
+RUN locale-gen en_US.UTF-8  
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en  
+ENV LC_ALL en_US.UTF-8
+
 
 # デフォルトシェルをbashにする．
 RUN chsh -s /bin/bash
@@ -59,6 +65,7 @@ RUN acc config default-task-choice all
 RUN acc config-dir && \
 acc config default-template cpp && \
 acc config default-test-dirname-format test
+
 
 # カレントディレクトリの設定．
 WORKDIR /root
