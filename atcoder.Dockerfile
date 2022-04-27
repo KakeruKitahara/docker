@@ -25,16 +25,17 @@ ENV LC_ALL en_US.UTF-8
 RUN chsh -s /bin/bash
 
 # メインでC++, サブでPyPyを使いたいので環境構築．online-judge-toolはPython(python3-pip)環境，atcoder-cliがNode.js(nodejs, npm)環境が必要なのでインストール．gdbはc++でデバッグするために用いる．
-RUN apt-get install -y gcc-9 g++-9 python3.8 pypy3 python3-pip nodejs npm gdb
+RUN apt-get install -y gcc-9 g++-9 python3.9 pypy3 python3-pip nodejs npm gdb
 
 # 一般的なコマンドで使えるように設定．（コマンドのデフォルトバージョンの設定．）
-# e.g. python3.8 main.py => python main.py
+# e.g. python3.9 main.py => python main.py
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 30 && \
 update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 30 && \
-update-alternatives --install /usr/bin/python python /usr/bin/python3.8 30 && \
 update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 30 && \
+update-alternatives --install /usr/bin/python python /usr/bin/python3.10 30 && \
 update-alternatives --install /usr/bin/pypy pypy /usr/bin/pypy3 30 && \
 update-alternatives --install /usr/bin/node node /usr/bin/nodejs 30
+
 
 # AtCoderでも使えるPythonライブラリをインストール．（サブとしてPyPyを使うかもしれないので．）
 # numpy, scipy:計算ライブラリ．
