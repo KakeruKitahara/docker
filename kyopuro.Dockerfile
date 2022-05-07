@@ -13,13 +13,12 @@ ENV TZ=Asia/Tokyo
 # Ubuntuにデフォルトに入っていないパッケージをインストール．(time:プログラムの計測時間．zdata:日本のタイムゾーン．tree:ツリー表示．)
 # aptコマンドよりapt-getコマンドを推奨:
 RUN apt-get update && \
-apt-get install -y bash time tzdata tree git language-pack-ja-base language-pack-ja
+apt-get install -y bash time tzdata tree git language-pack-ja-base language-pack-ja wget unzip
 
-RUN locale-gen en_US.UTF-8  
-ENV LANG en_US.UTF-8  
-ENV LANGUAGE en_US:en  
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
-
 
 # デフォルトシェルをbashにする．
 RUN chsh -s /bin/bash
@@ -35,7 +34,6 @@ update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 30 && \
 update-alternatives --install /usr/bin/python python /usr/bin/python3.10 30 && \
 update-alternatives --install /usr/bin/pypy pypy /usr/bin/pypy3 30 && \
 update-alternatives --install /usr/bin/node node /usr/bin/nodejs 30
-
 
 # AtCoderでも使えるPythonライブラリをインストール．（サブとしてPyPyを使うかもしれないので．）
 # numpy, scipy:計算ライブラリ．
@@ -57,7 +55,7 @@ RUN pip install online-judge-tools
 # atcoder-cliはコンテストIDでサンプルケースを一括ダウンロードできる．
 RUN npm install -g atcoder-cli
 
-# atcoder-cliの設定
+# atcoder-cliの設定．
 # acc config-dir:テンプレート設定のjsonファイルを作成．
 # acc config default-task-choice all:acc new contestID で問題選択せず，全問題のサンプルを作成．
 # acc config default-template cpp:テストのプログラム言語のデフォルト設定．
@@ -67,6 +65,12 @@ RUN acc config-dir && \
 acc config default-template cpp && \
 acc config default-test-dirname-format test
 
+#codeforce-toolの設定．
+RUN wget -P /lib https://github.com/xalanq/cf-tool/releases/download/v1.0.0/cf_v1.0.0_linux_64.zip && \
+unzip /lib/cf_v1.0.0_linux_64.zip -d /lib && \
+rm /lib/cf_v1.0.0_linux_64.zip
+#$PATHで，元々定義されている環境変数名"PATH"のパスを呼び出している．1つの環境変数で複数パスを設定するには:で繋げる．
+ENV PATH $PATH:/lib/cf_v1.0.0_linux_64 
 
 # カレントディレクトリの設定．
 WORKDIR /root
