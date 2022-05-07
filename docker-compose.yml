@@ -4,16 +4,16 @@
 version: "3.2"
 
 services:
-  atcoder:
+  kyopuro:
     # 作成コンテナ名
-    container_name: atcoder
+    container_name: kyopuro
 
     build:
       # docker buildコマンドを実行する場所
       context: .
 
       # 参照するdockerfile名
-      dockerfile: atcoder.Dockerfile
+      dockerfile: kyopuro.Dockerfile
 
     # bashなどを消してもdockerコンテナが終了しないようにするため．
     tty: true
