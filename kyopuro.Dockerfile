@@ -66,11 +66,14 @@ acc config default-template cpp && \
 acc config default-test-dirname-format test
 
 #codeforce-toolの設定．
-RUN wget -P /lib https://github.com/xalanq/cf-tool/releases/download/v1.0.0/cf_v1.0.0_linux_64.zip && \
-unzip /lib/cf_v1.0.0_linux_64.zip -d /lib && \
-rm /lib/cf_v1.0.0_linux_64.zip
+RUN cd /lib &&  \
+mkdir cf_v1.0.1 && \
+wget -P /lib/cf_v1.0.1 https://github.com/woshiluo/cf-tool/releases/download/v1.0.1/cf-musl && \
+cd /lib/cf_v1.0.1 &&  \
+chmod a=x cf-musl && \
+mv cf-musl cf
 #$PATHで，元々定義されている環境変数名"PATH"のパスを呼び出している．1つの環境変数で複数パスを設定するには:で繋げる．
-ENV PATH $PATH:/lib/cf_v1.0.0_linux_64 
+ENV PATH $PATH:/lib/cf_v1.0.1
 
 # カレントディレクトリの設定．
 WORKDIR /root
