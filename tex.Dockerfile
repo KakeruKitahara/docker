@@ -28,6 +28,8 @@ RUN tlmgr install caption
 RUN tlmgr install here
 RUN tlmgr install pgf
 RUN tlmgr install url
+RUN tlmgr install algorithms
+RUN tlmgr install algorithmicx
 
 
 # jlistingはCTANにはないので直接入れる．
